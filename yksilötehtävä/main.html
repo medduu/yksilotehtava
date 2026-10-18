@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Munchmap | Student restaurants</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./">
+      <img class="brand-logo" src="images/logo.png" alt="" width="44" height="44">
+      <span class="brand-name">Munchmap</span>
+    </a>
+    <nav aria-label="Restaurant filter">
+      <ul>
+        <li><button class="seg-btn" id="nav-all" type="button" aria-pressed="true">All restaurants</button></li>
+        <li><button class="seg-btn" id="fav-toggle" type="button" aria-pressed="false">&#9829; Favourites</button></li>
+      </ul>
+    </nav>
+    <div class="user-area">
+      <button class="profile-btn" id="profile-button" type="button" aria-haspopup="dialog" hidden>
+        <span class="avatar" id="header-avatar" aria-hidden="true"></span>
+        <span id="user-name"></span>
+      </button>
+      <button class="btn btn-small" id="auth-button" type="button">Log in</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="directory">
+      <div class="rest-panel">
+        <h1>Student restaurants</h1>
+        <div class="toolbar">
+          <label class="visually-hidden" for="search">Search restaurants</label>
+          <input id="search" type="search" placeholder="Search by name, address or city">
+          <label class="visually-hidden" for="city-filter">City</label>
+          <select id="city-filter">
+            <option value="">All cities</option>
+          </select>
+          <button class="btn btn-outline btn-small-dark" id="locate-btn" type="button">Use my location</button>
+        </div>
+        <p id="locate-msg" class="legend" role="status"></p>
+        <p id="result-count" class="legend" role="status"></p>
+        <ul id="rest-list" class="rest-list"></ul>
+      </div>
+      <div id="map" class="map-panel" role="region" aria-label="Map of student restaurants"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Munchmap &middot; Student restaurants in Finland</p>
+    <p>Map data &copy; OpenStreetMap contributors &middot; Tiles by OpenFreeMap</p>
+  </footer>
+
+  <dialog id="restaurant-dialog"></dialog>
+
+  <dialog id="auth-dialog" aria-labelledby="auth-title">
+    <h2 id="auth-title">Log in</h2>
+    <form id="auth-form" class="form auth-form">
+      <div id="username-row" hidden>
+        <label for="auth-username">Username</label>
+        <input id="auth-username" name="username" type="text" autocomplete="username">
+      </div>
+      <label for="auth-email">Email</label>
+      <input id="auth-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+      <label for="auth-password">Password</label>
+      <input id="auth-password" name="password" type="password" required minlength="8"
+        pattern="(?=.*[A-Z])(?=.*[0-9]).{8,}" aria-describedby="pw-hint"
+        title="At least 8 characters, one capital letter and one number" autocomplete="current-password">
+      <small id="pw-hint">At least 8 characters, one capital letter and one number.</small>
+      <p id="auth-error" role="alert"></p>
+      <button class="btn btn-primary" id="auth-submit" type="submit">Log in</button>
+      <button class="link-btn" id="auth-switch" type="button">No account yet? Sign up</button>
+      <button class="link-btn" id="auth-close" type="button">Close</button>
+    </form>
+  </dialog>
+
+  <dialog id="profile-dialog" aria-labelledby="profile-title">
+    <h2 id="profile-title">My profile</h2>
+    <div class="profile-body">
+      <span class="avatar avatar-large" id="profile-avatar" role="img" aria-label="Profile picture"></span>
+      <strong id="profile-username"></strong>
+      <span id="profile-email"></span>
+      <button class="btn btn-outline" id="avatar-change" type="button">Change profile picture</button>
+      <input id="avatar-input" type="file" accept="image/*" hidden>
+      <button class="link-btn" id="avatar-remove" type="button">Remove picture</button>
+      <p id="profile-error" role="alert"></p>
+      <button class="link-btn" id="profile-close" type="button">Close</button>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5/dist/maplibre-gl.js"></script>
+  <script src="restaurants.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
